@@ -6,26 +6,56 @@ Compare the two choices and determine the winner
 Track results and display the winner in variables humanScore and computerScore
 */
 
-let computer = getComputerChoice();
-let human =  getHumanChoice();   
-console.log(human);
-let humanScore = 0;
-let computerScore = 0;
 
-function getComputerChoice(){
-    let option = Math.random() * 3;
-    if (option < 1) {
-        return "Rock";
-    } else if (option < 2) {
-        return "Paper";
+
+function getComputerChoice(num){
+    const random = Math.floor (Math.random() * num);
+    if (random == 0){
+        return(  "Rock");
+    } else if (random == 1) {
+        return(  "Scissors");
     } else {
-        return "Scissors";
+        return( "Paper");
     }
 }
-
-function getHumanChoice() {
-    let choice = prompt("Enter Rock Paper or Scissors");
-    final =  choice.charAt(0).toUpperCase() + choice.slice(1).toLowerCase();
-    return final;
+function getHumanChoice(){
+    const human = prompt("Choose wisely: Rock - Paper - Scissors");
+    return human.charAt(0).toUpperCase() + human.slice(1).toLowerCase();
 }
 
+function playRound (cpu, men, computerScore, humanScore) {
+    if (men == cpu){
+        console.log ("tie");
+    } else if 
+        (men == "Rock" && cpu == "Scissors" ||
+        men == "Scissors" && cpu == "Paper" ||
+        men == "Paper" && cpu =="Rock"){
+        console.log ("win");
+        humanScore++;
+    } else {
+        console.log("lose");
+        computerScore++;
+           
+    }   
+    return computerScore && humanScore;
+}
+
+function playGame(){
+    
+    humanScore = 0
+    computerScore = 0
+    
+    for (let i = 0; i<5; i++){
+    const cpu = getComputerChoice(3);
+    const men = getHumanChoice();
+    
+    playRound(cpu, men, humanScore, computerScore);
+    if (i == 5 && humanScore > computerScore){
+        console.log ("congrats, you win");
+    } else if (i == 5 && humanScore < computerScore){
+        console.log("You Suck")
+    }
+}
+}
+
+playGame()
