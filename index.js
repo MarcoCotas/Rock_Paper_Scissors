@@ -8,54 +8,60 @@ Track results and display the winner in variables humanScore and computerScore
 
 
 
-function getComputerChoice(num){
-    const random = Math.floor (Math.random() * num);
-    if (random == 0){
-        return(  "Rock");
-    } else if (random == 1) {
-        return(  "Scissors");
-    } else {
-        return( "Paper");
-    }
+function getComputerChoice() {
+    const choices = ["Rock", "Paper", "Scissors"];
+    return choices[Math.floor(Math.random() * 3)];
 }
-function getHumanChoice(){
-    const human = prompt("Choose wisely: Rock - Paper - Scissors");
+
+function getHumanChoice() {
+    let human;
+    human = prompt("Choose wisely: Rock - Paper - Scissors");
+
     return human.charAt(0).toUpperCase() + human.slice(1).toLowerCase();
 }
 
-function playRound (cpu, men, computerScore, humanScore) {
-    if (men == cpu){
-        console.log ("tie");
-    } else if 
-        (men == "Rock" && cpu == "Scissors" ||
-        men == "Scissors" && cpu == "Paper" ||
-        men == "Paper" && cpu =="Rock"){
-        console.log ("win");
-        humanScore++;
+function playRound(cpu, men) {
+    if (men === cpu) {
+        console.log("It's a tie!");
+        return [0, 0];  // Sem pontos para ninguém
+    } else if (
+        (men === "Rock" && cpu === "Scissors") ||
+        (men === "Scissors" && cpu === "Paper") ||
+        (men === "Paper" && cpu === "Rock")
+    ) {
+        console.log(`You win! ${men} beats ${cpu}`);
+        return [1, 0];  // Vitória do humano
     } else {
-        console.log("lose");
-        computerScore++;
-           
-    }   
-    return computerScore && humanScore;
-}
-
-function playGame(){
-    
-    humanScore = 0
-    computerScore = 0
-    
-    for (let i = 0; i<5; i++){
-    const cpu = getComputerChoice(3);
-    const men = getHumanChoice();
-    
-    playRound(cpu, men, humanScore, computerScore);
-    if (i == 5 && humanScore > computerScore){
-        console.log ("congrats, you win");
-    } else if (i == 5 && humanScore < computerScore){
-        console.log("You Suck")
+        console.log(`You lose! ${cpu} beats ${men}`);
+        return [0, 1];  // Vitória do computador
     }
 }
+
+function playGame() {
+    let humanScore = 0;
+    let computerScore = 0;
+
+    for (let i = 0; i < 5; i++) {
+        const cpu = getComputerChoice();
+        const men = getHumanChoice();
+        console.log(`Round ${i + 1}: You chose ${men}, Computer chose ${cpu}`);
+
+        let [hScore, cScore] = playRound(cpu, men);
+        humanScore += hScore;
+        computerScore += cScore;
+        
+        console.log(`Current Score -> You: ${humanScore} | Computer: ${computerScore}`);
+    }
+
+    // Determinar o vencedor final
+    if (humanScore > computerScore) {
+        console.log("🎉 Congrats, you win the game!");
+    } else if (humanScore < computerScore) {
+        console.log("💀 You lost the game. Better luck next time!");
+    } else {
+        console.log("🤝 It's a tie overall!");
+    }
 }
 
-playGame()
+// Inicia o jogo
+playGame();
