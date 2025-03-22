@@ -23,17 +23,17 @@ function getHumanChoice() {
 function playRound(cpu, men) {
     if (men === cpu) {
         console.log("It's a tie!");
-        return [0, 0];  // Sem pontos para ninguém
+        return [0, 0];  // Tie 
     } else if (
         (men === "Rock" && cpu === "Scissors") ||
         (men === "Scissors" && cpu === "Paper") ||
         (men === "Paper" && cpu === "Rock")
     ) {
         console.log(`You win! ${men} beats ${cpu}`);
-        return [1, 0];  // Vitória do humano
+        return [1, 0];  // Human Victory
     } else {
         console.log(`You lose! ${cpu} beats ${men}`);
-        return [0, 1];  // Vitória do computador
+        return [0, 1];  // CPU Victory
     }
 }
 
@@ -53,7 +53,7 @@ function playGame() {
         console.log(`Current Score -> You: ${humanScore} | Computer: ${computerScore}`);
     }
 
-    // Determinar o vencedor final
+    // Final Winner
     if (humanScore > computerScore) {
         console.log("🎉 Congrats, you win the game!");
     } else if (humanScore < computerScore) {
@@ -63,5 +63,5 @@ function playGame() {
     }
 }
 
-// Inicia o jogo
+// Start the game
 playGame();
